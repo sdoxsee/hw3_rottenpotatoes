@@ -23,10 +23,26 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to check the 'PG' and 'R' checkboxes
+  When I check "ratings[PG]"
+  And I check "ratings[R]"
   # enter step(s) to uncheck all other checkboxes
+  And I uncheck "ratings[G]"  
+  And I uncheck "ratings[PG-13]"  
+  And I uncheck "ratings[NC-17]"  
   # enter step to "submit" the search form on the homepage
+  And I press "Refresh"
   # enter step(s) to ensure that PG and R movies are visible
+  Then I should be on the RottenPotatoes home page
+  And I should see "Raiders of the Lost Ark"
+  And I should see "PG"
+  And I should see "The Terminator"
+  And I should see "R"
   # enter step(s) to ensure that other movies are not visible
+  And I should not see "2001: A Space Odyssey"
+  # And I should not see "G"
+  And I should not see "Chocolat"
+  # And I should not see "PG-13"
+  # And I should not see "NC-17"
 
 Scenario: no ratings selected
   # see assignment
