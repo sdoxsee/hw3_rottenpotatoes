@@ -35,3 +35,13 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     step 'I ' + (uncheck ? "uncheck" : "check") + ' "ratings[' + rating.strip + ']"'
   end  
 end
+
+Then /I should see all of the movies/ do 
+  #  ensure that that e1 occurs before e2.
+  #  page.content  is the entire content of the page as a string.
+  # assert false, "Unimplmemented"
+  movies = Movie.find(:all)
+  # movies.each do |movie|
+  result = page.has_xpath?('.//table[@id="movies"]/tbody/tr', :count => movies.size)
+  result.should == true
+end
