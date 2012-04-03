@@ -20,7 +20,9 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.content  is the entire content of the page as a string.
-  assert false, "Unimplmemented"
+  # assert false, "Unimplmemented"
+  # page.body
+  assert (page.body =~ /#{e1}(.*)#{e2}/m) >= 0
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -42,6 +44,6 @@ Then /I should see all of the movies/ do
   # assert false, "Unimplmemented"
   movies = Movie.find(:all)
   # movies.each do |movie|
-  result = page.has_xpath?('.//table[@id="movies"]/tbody/tr', :count => movies.size)
-  result.should == true
+  assert page.has_xpath?('.//table[@id="movies"]/tbody/tr', :count => movies.size)
+  # result.should == true
 end
